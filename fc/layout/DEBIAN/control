@@ -1,0 +1,8 @@
+Package: com.nito.fcontrol
+Name: fcontrol 
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Add MFI controller support to FIFA for iOS 
+Maintainer: Kevin Bradley
+Author: Kevin Bradley
+Section: Tweaks

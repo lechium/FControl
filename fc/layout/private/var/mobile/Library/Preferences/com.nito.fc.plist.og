@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ButtonA</key>
+	<string>FCSwitchOrPass</string>
+	<key>ButtonB</key>
+	<string>FCSprint</string>
+	<key>ButtonX</key>
+	<string>FCSecondDefOrThrough</string>
+	<key>ButtonY</key>
+	<string>FCSlideOrShoot</string>
+	<key>Dpad.down</key>
+	<string>FCSprint</string>
+	<key>Dpad.left</key>
+	<string>FCSprint</string>
+	<key>Dpad.right</key>
+	<string>FCSprint</string>
+	<key>Dpad.up</key>
+	<string>FCSprint</string>
+	<key>ExperimentalControl</key>
+	<true/>
+	<key>LeftShoulder</key>
+	<string>FCSprint</string>
+	<key>LeftThumbstickButton</key>
+	<string>FCSprint</string>
+	<key>LeftTrigger</key>
+	<string>FCSprint</string>
+	<key>Menu</key>
+	<string>FCSprint</string>
+	<key>RightShoulder</key>
+	<string>FCSprint</string>
+	<key>RightThumbstickButton</key>
+	<string>FCSprint</string>
+	<key>RightTrigger</key>
+	<string>FCSprint</string>
+</dict>
+</plist>

@@ -1,0 +1,9 @@
+{
+	entry = {
+		bundle = pubc;
+		cell = PSLinkCell;
+		detail = PUBCPSListController;
+		isController = 1;
+		label = PUBC;
+	};
+}
