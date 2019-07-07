@@ -101,7 +101,7 @@
     UIViewController *tvc = [self topViewController];
     //NSLog(@"tvc: %@", tvc);
     NSString *topViewClass = NSStringFromClass(tvc.class);
-    if ([topViewClass containsString:@"PUB"]){
+    if ([topViewClass containsString:@"FCPrefTableViewController"] || [topViewClass containsString:@"FCControl"]){
         return TRUE;
     }
     return FALSE;
@@ -271,17 +271,45 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controllerConnected:) name:GCControllerDidConnectNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controllerDisconnected:) name:GCControllerDidDisconnectNotification object:nil];
     [GCController startWirelessControllerDiscoveryWithCompletionHandler:nil];
-    NSString *dataFile = [[self documentsFolder] stringByAppendingPathComponent:@"UserSettings.ini"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:dataFile]){
-        
-        NSString *iniFile = [NSString stringWithContentsOfFile:dataFile encoding:NSASCIIStringEncoding error:nil];
-        NSLog(@"gotsa do something with this file eventually, nothing right now tho");
-            
-        
-    }
+    [self repairUserSettingsIfNecessary];
 }
 
 
+- (void)repairUserSettingsIfNecessary {
+    
+    NSLog(@"FControl repairUserSettingsIfNecessary");
+    NSString *dataFile = [[self documentsFolder] stringByAppendingPathComponent:@"UserSettings.ini"];
+    NSString *dataFileBak = [[self documentsFolder] stringByAppendingPathComponent:@"UserSettings.ini.bak"];
+    [[NSFileManager defaultManager] copyItemAtPath:dataFile toPath:dataFileBak error:nil];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dataFile]){
+        
+        NSString *iniFile = [NSString stringWithContentsOfFile:dataFile encoding:NSASCIIStringEncoding error:nil];
+        NSLog(@"FControl gotsa do something with this file eventually, nothing right now tho");
+        //ingamegestureonlycontrols = 0
+        NSArray *components = [iniFile componentsSeparatedByString:@"\n"];
+        NSMutableArray *copiedComponents = [components mutableCopy];
+        __block BOOL modified = FALSE;
+        [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([obj containsString:@"ingamegestureonlycontrols"]){
+                NSLog(@"FControl GOT IM!: %@", obj);
+                if ([obj containsString:@"1"]){
+                    NSString *newString = [obj stringByReplacingOccurrencesOfString:@"1" withString:@"0"];
+                    [copiedComponents replaceObjectAtIndex:idx withObject:newString];
+                    modified = TRUE;
+                    *stop = TRUE;
+                }
+            }
+            
+        }];
+        if (modified){
+            NSString *outputString = [copiedComponents componentsJoinedByString:@"\n"];
+            [outputString writeToFile:dataFile atomically:TRUE encoding:NSUTF8StringEncoding error:nil];
+        }
+        
+    }
+    
+}
 
 /**
  
@@ -348,6 +376,7 @@
 - (void)setupTapRecognizerIfNeeded {
     
     UIView *view = [self IOSView];
+    [self repairUserSettingsIfNecessary];
     if (view != nil && _tapSetup == FALSE){
         touchSurfaceDoubleTapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTouchSurfaceDoubleTap:)];
         touchSurfaceDoubleTapRecognizer.numberOfTapsRequired = 2;
@@ -356,6 +385,7 @@
         _tapSetup = TRUE;
         NSLog(@"#### show alert??");
         [RKDropdownAlert title:@"FControl 1.0 Activated" message:@"Tap here now OR double tap anywhere on the screen with two fingers to bring up the control customization window." backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:3 delegate:self];
+      
     }
 }
 
@@ -783,7 +813,7 @@
             outpoint = [self convertPointForScreen:CGPointMake(691,268)];
             break;
             
-        case kFCSwitchOrPass: 
+        case kFCSwitchOrPass:
             outpoint = [self convertPointForScreen:CGPointMake(585,375)];
             break;
             
