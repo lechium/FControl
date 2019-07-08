@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "FCDefines.h"
 #import <GameController/GameController.h>
+#import "RKDropdownAlert/RKDropdownAlert.h"
 
-@interface FCControllerManager : NSObject
+@interface FCControllerManager : NSObject <RKDropdownAlertDelegate>
 
 @property (nonatomic, strong) GCController *gameController;
 @property (nonatomic, strong) NSDictionary *gamePlayDictionary;

@@ -12,9 +12,10 @@ FControl_FILES = fc.xm NSObject+AssociatedObjects.m KIF/UIEvent+KIFAdditions.m K
 FControl_FILES += PureLayout/ALView+PureLayout.m PureLayout/NSArray+PureLayout.m PureLayout/NSLayoutConstraint+PureLayout.m
 FControl_FILES += FCPrefTableViewController.m FCControlListTableViewController.m UIWindow+Additions.m
 FControl_FILES += RKDropdownAlert/RKDropdownAlert.m NSDictionary+nullRemoval.m
+FControl_FILES += extobjc/EXTRuntimeExtensions.m extobjc/EXTScope.m 
 FControl_LIBRARIES = substrate
 FControl_FRAMEWORKS = Foundation IOKit GameController
-FControl_CFLAGS += -I.-IRKDropdownAlert -IPureLayout -IKIF -fobjc-arc -miphoneos-version-min=9.0
+FControl_CFLAGS += -I.-IRKDropdownAlert -Iextobjc -IPureLayout -IKIF -fobjc-arc -miphoneos-version-min=9.0
 FControl_LDFLAGS = -miphoneos-version-min=9.0 -undefined dynamic_lookup
 #FControl_CODESIGN_FLAGS=-Slibrespring.xml
 

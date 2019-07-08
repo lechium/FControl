@@ -17,17 +17,8 @@
 @synthesize currentValue, keyValue;
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-
-    
     
 }
 
@@ -37,13 +28,13 @@
     return @[FCSlideOrShoot,FCSecondDefOrThrough,FCSwitchOrPass,FCSprint];
 }
 
-- (id)initWithOriginalValue:(id)value keyValue:(NSString *)keyValue {
+- (id)initWithOriginalValue:(id)value keyValue:(NSString *)kv {
  
     self = [super init];
     if (self){
         
         self.currentValue = value;
-        self.keyValue = keyValue;
+        self.keyValue = kv;
         
     }
     return self;

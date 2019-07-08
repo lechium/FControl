@@ -16,7 +16,7 @@
 #import "FCPrefTableViewController.h"
 #import "NSObject+AssociatedObjects.h"
 #import "UIWindow+Additions.h"
-#import "RKDropdownAlert/RKDropdownAlert.h"
+
 #import "NSDictionary+nullRemoval.h"
 
 //screen size
@@ -397,11 +397,11 @@
     self.gameController = controller;
 
     GCExtendedGamepad *profile = self.gameController.extendedGamepad;
-    
+    @weakify(self);
     self.gameController.controllerPausedHandler = ^(GCController * _Nonnull controller) {
         
-        if (!self.menuVisible){
-            [self showControlEditingView];
+        if (!self_weak_.menuVisible){
+            [self_weak_ showControlEditingView];
         } else {
             
             UIViewController *rvc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
@@ -533,6 +533,9 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"12.1")){
         
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+
         profile.leftThumbstickButton.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
             
             if (pressed){
@@ -552,6 +555,7 @@
             }
             
         };
+        #pragma clang diagnostic pop
     }
     
     profile.dpad.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {

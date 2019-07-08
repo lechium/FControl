@@ -254,7 +254,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    NSDictionary *prefs = [[FCControllerManager sharedManager] controllerPreferences];
     [self configureCell:cell forRow:indexPath.row];
     
     return cell;
